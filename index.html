@@ -108,8 +108,7 @@
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
-    // Start your code here
-    // You may move this JS to another file if you wish
+
 
     errorBtns.forEach(btn => {
       const label = btn.textContent.trim();
@@ -211,14 +210,14 @@
 
         case 'Trigger a Global Error':
           btn.addEventListener('click', () => {
-            // this will bypass local try/catch and hit window.onerror
+            // this will bypass local try catch and hit window.onerror
             nonexistentFunction();
           });
           break;
       }
     });
 
-    // example of try/catch/finally with JSON.parse
+    // example of try catch finally with JSON.parse
     function parseJSON(text) {
       try {
         const obj = JSON.parse(text);
@@ -230,7 +229,6 @@
       }
     }
 
-    // custom error via throw and extending Error
     class ValidationError extends Error {
       constructor(message) {
         super(message);
@@ -245,7 +243,6 @@
       return Number(n);
     }
 
-    // global error handler
     window.onerror = function(message, source, line, column, error) {
       console.log('Global error caught:', { message, source, line, column, error });
     };
