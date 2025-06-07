@@ -7,6 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "082ad157fa7441acbd77be9b49cde0d1"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
+
   <style>
     button {
       margin: 3px;
@@ -102,6 +110,145 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    errorBtns.forEach(btn => {
+      const label = btn.textContent.trim();
+
+      switch (label) {
+        case 'Console Log':
+          btn.addEventListener('click', () => {
+            console.log('console.log demo');
+          });
+          break;
+
+        case 'Console Error':
+          btn.addEventListener('click', () => {
+            console.error('Console Error Demo');
+          });
+          break;
+
+        case 'Console Count':
+          btn.addEventListener('click', () => {
+            console.count('myCounter');
+          });
+          break;
+
+        case 'Console Warn':
+          btn.addEventListener('click', () => {
+            console.warn('Console Warn Demo');
+          });
+          break;
+
+        case 'Console Assert':
+          btn.addEventListener('click', () => {
+            const condition = false;
+            console.assert(condition, 'Assertion failed: 9 + 10 is NOT 21');
+          });
+          break;
+
+        case 'Console Clear':
+          btn.addEventListener('click', () => {
+            console.clear();
+          });
+          break;
+
+        case 'Console Table':
+          btn.addEventListener('click', () => {
+            const data = [
+              { name: 'Software engineering', num: 30 },
+              { name: 'Cao Ming', num: 11 }
+            ];
+            console.table(data);
+          });
+          break;
+
+        case 'Console Dir':
+          btn.addEventListener('click', () => {
+            console.dir(document.querySelector('fieldset'));
+          });
+          break;
+
+        case 'Console dirxml':
+          btn.addEventListener('click', () => {
+            console.dirxml(document.querySelector('main'));
+          });
+          break;
+
+        case 'Console Group Start':
+          btn.addEventListener('click', () => {
+            console.group('Example Group');
+            console.log('Line 1 in group');
+            console.log('Line 2 in group');
+          });
+          break;
+
+        case 'Console Group End':
+          btn.addEventListener('click', () => {
+            console.groupEnd();
+          });
+          break;
+
+        case 'Start Timer':
+          btn.addEventListener('click', () => {
+            console.time('demoTimer');
+          });
+          break;
+
+        case 'End Timer':
+          btn.addEventListener('click', () => {
+            console.timeEnd('demoTimer');
+          });
+          break;
+
+        case 'Console Trace':
+          btn.addEventListener('click', () => {
+            function wazaaa() { wazaa(); }
+            function wazaa() { waza(); }
+            function waza() { console.trace('Stack trace demo'); }
+            wazaaa();
+          });
+          break;
+
+        case 'Trigger a Global Error':
+          btn.addEventListener('click', () => {
+            // this will bypass local try/catch and hit window.onerror
+            nonexistentFunction();
+          });
+          break;
+      }
+    });
+
+    // example of try/catch/finally with JSON.parse
+    function parseJSON(text) {
+      try {
+        const obj = JSON.parse(text);
+        console.log('Parsed object:', obj);
+      } catch (err) {
+        console.error('JSON parse error:', err);
+      } finally {
+        console.log('Parse attempt finished.');
+      }
+    }
+
+    // custom error via throw and extending Error
+    class ValidationError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = 'ValidationError';
+      }
+    }
+
+    function validateNumber(n) {
+      if (isNaN(n)) {
+        throw new ValidationError(`"${n}" is not a valid number.`);
+      }
+      return Number(n);
+    }
+
+    // global error handler
+    window.onerror = function(message, source, line, column, error) {
+      console.log('Global error caught:', { message, source, line, column, error });
+    };
   </script>
 </body>
 
